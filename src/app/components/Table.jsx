@@ -154,7 +154,7 @@ const ATable = () => {
     <div className="flex flex-col md:flex-row h-screen bg-gray-50">
       {/* Sidebar for employees */}
       <div className="w-full md:w-72 bg-white p-4 border-r overflow-auto md:h-screen">
-        <div className="space-y-2">
+        <div className="space-y-2 mb-12">
           {Array(15)
             .fill(mockEmployeeData)
             .map((employee, index) => (
