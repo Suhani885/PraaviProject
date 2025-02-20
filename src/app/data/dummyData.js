@@ -3,7 +3,6 @@ export const mockEmployeeData = {
   name: "Bhaskar Sharma",
   role: "Sales Manager",
   department: "Sales Dept.",
-  avatar: "/Users/suhani/PraaviProject/praavi-project/src/app/assets/img.jpeg",
   summary: {
     calculated: {
       present: "17.5",

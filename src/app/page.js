@@ -12,7 +12,7 @@ const AttendancePage = () => {
   const [view, setView] = useState("detailed");
 
   return (
-    <Layout className="min-h-screen">
+    <Layout className="h-screen w-screen overflow-hidden">
       <Sidebar />
       <Layout className="ml-16">
         <TopNav />
