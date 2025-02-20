@@ -54,7 +54,10 @@ const ATable = () => {
         return (
           <div className="flex items-center p-1 rounded font-medium">
             <span className="text-gray-800 ">{time}</span>
-            <span className={timeColor}> • {hours}</span>
+            <span className={timeColor}>
+              {" "}
+              <span className="text-gray-400 text-xl ml-1">•</span> {hours}
+            </span>
           </div>
         );
       },
@@ -74,7 +77,7 @@ const ATable = () => {
             {value >= 0 ? `+${value}` : value}
           </span>
           <span className="text-gray-400 ml-2 text-xs line-through">+900</span>
-          <EllipsisVertical className="w-4 h-4" />
+          <EllipsisVertical className="w-5 h-4" />
         </div>
       ),
     },
@@ -150,9 +153,9 @@ const ATable = () => {
   return (
     <div className="flex flex-col md:flex-row h-screen bg-gray-50">
       {/* Sidebar for employees */}
-      <div className="w-full md:w-72 bg-gray-50 p-4 border-r overflow-auto md:h-screen">
+      <div className="w-full md:w-72 bg-white p-4 border-r overflow-auto md:h-screen">
         <div className="space-y-2">
-          {Array(20)
+          {Array(15)
             .fill(mockEmployeeData)
             .map((employee, index) => (
               <div
@@ -315,7 +318,7 @@ const ATable = () => {
                   border: 1px solid #e5e7eb !important;
                 }
               `}</style>
-              <div className="overflow-x-auto border">
+              <div className="overflow-x-auto ">
                 <Table
                   columns={columns}
                   dataSource={mockAttendanceRecords}
