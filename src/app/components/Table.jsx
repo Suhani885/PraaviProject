@@ -20,38 +20,39 @@ const ATable = () => {
       dataIndex: "date",
       key: "date",
       render: (text, record) => (
-        <div>
-          <span className="text-xs mr-2">{record.day}</span>
-          <span className="text-xs">{dayjs(text).format("DD-MMM-YYYY")}</span>
+        <div className="font-semibold">
+          <span className="text-sm mr-2">{record.day}</span>
+          <span className="text-sm">{dayjs(text).format("DD-MMM-YYYY")}</span>
         </div>
       ),
-      width: 130,
+      width: 150,
     },
     {
       title: "Time planned + WH",
       dataIndex: "plannedTime",
       key: "plannedTime",
-      width: 240,
+      width: 250,
+      render: (text) => <div className="text-sm font-semibold">{text}</div>,
     },
     {
       title: "Actual Time",
       dataIndex: "actualTime",
       key: "actualTime",
-      width: 220,
+      width: 250,
       render: (text, record) => {
         const timeParts = text.split("•");
         const timePart = timeParts[0].trim();
         const hoursPart = timeParts.length > 1 ? timeParts[1].trim() : "";
 
         return (
-          <div>
-            <span className="text-xs">{timePart}</span>
+          <div className="font-semibold">
+            <span className="text-sm">{timePart}</span>
             {hoursPart && (
               <span
                 className={
                   record.status === "LT" || record.status.includes("LT")
-                    ? "text-red-500 ml-1 text-xs"
-                    : "text-black ml-1 text-xs"
+                    ? "text-red-500 ml-1 text-sm"
+                    : "text-black ml-1 text-sm"
                 }
               >
                 • {hoursPart}
@@ -65,12 +66,12 @@ const ATable = () => {
       title: "Fine/Bonus",
       dataIndex: "bonus",
       key: "bonus",
-      width: 110,
+      width: 150,
       render: (value) => (
-        <div className="flex items-center">
+        <div className="flex items-center font-semibold">
           <span
             className={
-              value >= 0 ? "text-green-500 text-xs" : "text-red-500 text-xs"
+              value >= 0 ? "text-green-500 text-sm" : "text-red-500 text-sm"
             }
           >
             {value >= 0 ? `+${value}` : value}
@@ -82,21 +83,22 @@ const ATable = () => {
     {
       title: "Error",
       key: "error",
+      width: 100,
       render: (_, record) => (
-        <div className="flex gap-1 ">
+        <div className="flex gap-1">
           {record.errors.includes("!") && (
             <span className="w-6 h-6 rounded-full flex items-center justify-center">
-              <MapPin size={14} className="text-red-500" />
+              <MapPin size={16} className="text-red-500" />
             </span>
           )}
           {record.errors.includes("R") && (
             <span className="w-6 h-6 rounded-full flex items-center justify-center">
-              <Clock size={14} className="text-red-500" />
+              <Clock size={16} className="text-red-500" />
             </span>
           )}
           {record.errors.includes("P") && (
             <span className="w-6 h-6 rounded-full flex items-center justify-center">
-              <UserRound size={14} className="text-red-500" />
+              <UserRound size={16} className="text-red-500" />
             </span>
           )}
         </div>
@@ -106,72 +108,37 @@ const ATable = () => {
       title: "Cal. Att.",
       dataIndex: "calculatedAttendance",
       key: "calculatedAttendance",
-      render: (text) => {
-        const parts = text
-          .split("+")
-          .map((part) => part.split("-"))
-          .flat()
-          .map((p) => p.trim());
-        return (
-          <div className="flex items-center space-x-1">
-            {parts.map((part, index) => (
-              <React.Fragment key={index}>
-                {index > 0 && text.includes("+") && (
-                  <span className="text-green-500 text-xs">+</span>
-                )}
-                {index > 0 && text.includes("-") && (
-                  <span className="text-green-500 text-xs">-</span>
-                )}
-                <span className="text-green-500 text-xs">{part}</span>
-              </React.Fragment>
-            ))}
-          </div>
-        );
-      },
+      width: 160,
+      render: (text) => (
+        <div className="text-sm font-semibold text-green-500 px-4 py-2">
+          {text}
+        </div>
+      ),
     },
     {
       title: "Final Att.",
       dataIndex: "finalAttendance",
       key: "finalAttendance",
-      width: 60,
-      render: (text) => {
-        const parts = text
-          .split("+")
-          .map((part) => part.split("-"))
-          .flat()
-          .map((p) => p.trim());
-        return (
-          <div className="flex items-center space-x-1">
-            {parts.map((part, index) => (
-              <React.Fragment key={index}>
-                {index > 0 && text.includes("+") && (
-                  <span className="text-xs">+</span>
-                )}
-                {index > 0 && text.includes("-") && (
-                  <span className="text-xs">-</span>
-                )}
-                <span className="text-xs">{part}</span>
-              </React.Fragment>
-            ))}
-          </div>
-        );
-      },
+      width: 160,
+      render: (text) => (
+        <div className="text-sm font-semibold px-4 py-2">{text}</div>
+      ),
     },
     {
       title: "",
       key: "actions",
       render: () => (
-        <div className="flex gap-2">
-          <span className="w-6 h-6 rounded-full flex items-center justify-center">
-            <Link size={12} className="text-black" />
+        <div className="flex gap-3 font-semibold">
+          <span className="rounded-full flex items-center justify-center">
+            <Link size={16} className="text-black" />
             <span className="ml-1">3</span>
           </span>
-          <span className="w-6 h-6 rounded-full flex items-center justify-center">
-            <MessageCircle size={12} className="text-black" />
+          <span className="rounded-full flex items-center justify-center">
+            <MessageCircle size={16} className="text-black" />
             <span className="ml-1">3</span>
           </span>
-          <span className="w-6 h-6 rounded-full flex items-center justify-center">
-            <ChevronDown size={12} className="text-black" />
+          <span className="rounded-full flex items-center justify-center">
+            <ChevronDown size={16} className="text-black" />
           </span>
         </div>
       ),
@@ -180,7 +147,7 @@ const ATable = () => {
 
   return (
     <div className="flex flex-col md:flex-row h-screen bg-gray-50">
-      {/* Sidebar */}
+      {/* Sidebar for employees */}
       <div className="w-full md:w-64 bg-gray-50 p-4 border-r overflow-auto md:h-screen">
         <div className="space-y-2">
           {Array(20)
@@ -199,7 +166,7 @@ const ATable = () => {
                 <div>
                   <p className="font-medium text-lg">{employee.name}</p>
                   <p className="text-xs text-gray-500">
-                    {employee.role} • {employee.department}
+                    {employee.role} | {employee.department}
                   </p>
                 </div>
               </div>
@@ -211,7 +178,7 @@ const ATable = () => {
         <div className="p-2 md:p-6">
           <div>
             {/* Employee Header */}
-            <div className="p-5 border-b shadow-md rounded-lg bg-white mb-6">
+            <div className="p-6 border-b shadow-md rounded-lg bg-white mb-6">
               <div className="flex flex-col md:flex-row items-start gap-4">
                 <div className="flex items-center gap-4">
                   <img
@@ -224,7 +191,7 @@ const ATable = () => {
                       {selectedEmployee.name}
                     </h3>
                     <p className="text-gray-500 text-xs">
-                      {selectedEmployee.role} • {selectedEmployee.department}
+                      {selectedEmployee.role} | {selectedEmployee.department}
                     </p>
                   </div>
                 </div>
@@ -262,7 +229,7 @@ const ATable = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr className="font-semibold">
                         <td className="border px-2 md:px-4 py-1 md:py-2">
                           Cal.
                         </td>
@@ -295,7 +262,7 @@ const ATable = () => {
                           {selectedEmployee.summary.calculated.finalizedBy}
                         </td>
                       </tr>
-                      <tr>
+                      <tr className="font-semibold">
                         <td className="border px-2 md:px-4 py-1 md:py-2">
                           Final
                         </td>
@@ -333,14 +300,28 @@ const ATable = () => {
               </div>
             </div>
 
-            <div className="overflow-x-auto">
-              <Table
-                columns={columns}
-                dataSource={mockAttendanceRecords}
-                pagination={false}
-                scroll={{ y: 750, x: "max-content" }}
-                className="attendance-table"
-              />
+            <div className="flex flex-col md:flex-row h-screen bg-gray-50">
+              <style jsx global>{`
+                .attendance-table .ant-table-cell {
+                  border: 1px solid #e5e7eb !important;
+                }
+                .attendance-table .ant-table-thead > tr > th {
+                  border: 1px solid #e5e7eb !important;
+                  background-color: #f9fafb;
+                }
+                .attendance-table .ant-table-tbody > tr > td {
+                  border: 1px solid #e5e7eb !important;
+                }
+              `}</style>
+              <div className="overflow-x-auto border">
+                <Table
+                  columns={columns}
+                  dataSource={mockAttendanceRecords}
+                  pagination={false}
+                  scroll={{ y: 750, x: "max-content" }}
+                  className="attendance-table"
+                />
+              </div>
             </div>
           </div>
         </div>
